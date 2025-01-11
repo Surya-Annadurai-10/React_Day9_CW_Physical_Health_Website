@@ -8,7 +8,7 @@ const ExCard = (props) => {
    
     
   return (
-    <div className={styles.card_con}>
+    <div  className={styles.card_con}>
         <div className={styles.card_img}>
             <img src={props.gifUrl} alt="ex" />
         </div>
