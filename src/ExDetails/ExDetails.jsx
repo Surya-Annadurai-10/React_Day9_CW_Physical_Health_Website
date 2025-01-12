@@ -1,27 +1,52 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from './ExDetails.module.css'
 // import { GiStrong } from "react-icons/md";
 import { IoArrowBack } from "react-icons/io5";
 import { GiStrong } from "react-icons/gi";
+import { dataContext } from '../App';
 
-const ExDetails = () => {
+const ExDetails = (props) => {
+
+
+  let exercise = {... props.exData}
+  console.log(exercise);
+
+  const handleBack = () =>{
+      props.setShowExDetails(false);
+  }
+  
   return (
     <div className={styles.exDetails_con}>
 
         <div className={styles.left}>
-            <img src="https://sp.yimg.com/ib/th?id=OIP.vcO8n4EJtZuU3ljhz0IjTQHaE7&pid=Api&w=148&h=148&c=7&dpr=2&rs=1" alt="" />
+            <img src={exercise.gifUrl} alt="" />
         </div>
         <div  className={styles.right}>
-             <h1>Barbell Alteranate Rows</h1>
-             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Assumenda beatae voluptatibus maxime quasi, saepe dicta provident odit maiores voluptatem omnis culpa non sit enim rem itaque, soluta velit distinctio harum sed vel nemo quia quidem voluptas qui! Necessitatibus dolor itaque vel, nostrum libero sunt cumque aspernatur, voluptatibus nemo laudantium voluptatem.</p>
+             <h1>{exercise.name}</h1>
+             <h3>Equipment : {exercise.equipment}</h3>
+             <h3>Body Part : {exercise.bodyPart}</h3>
+             <ul>
+              <h3>Instructions :</h3>
+              {
+                exercise.instructions.map((ele,i) =>{
+                  return <li key={i}>{ele}</li>
+                })
+              }
+             </ul>
              <div className={styles.list}>
-                <div> <GiStrong className={styles.div} role='div'/><h3>hamstring</h3></div>
-                <div><GiStrong className={styles.div} role='div' /><h3>hamstring</h3></div>
+              {
+                exercise.secondaryMuscles.map((ele,i) =>{
+                  return <div key={i}> <GiStrong className={styles.div} role='div'/><h3 className={styles.muscles}>{ele}</h3></div>
+                })
+              }
+                
+                {/* <div><GiStrong className={styles.div} role='div' /><h3>hamstring</h3></div>
                 <div><GiStrong className={styles.div}  role='div' /><h3>hamstring</h3></div>
                 <div><GiStrong className={styles.div} role='div' /><h3>hamstring</h3></div>
-                <div><GiStrong className={styles.div} role='div' /><h3>hamstring</h3></div>
+                <div><GiStrong className={styles.div} role='div' /><h3>hamstring</h3></div> */}
              </div>
-             <IoArrowBack className={styles.button} role='button' />
+             <h3>Targets : {exercise.target}</h3>
+             <IoArrowBack className={styles.button} onClick={handleBack} role='button' />
         </div>
 
     </div>

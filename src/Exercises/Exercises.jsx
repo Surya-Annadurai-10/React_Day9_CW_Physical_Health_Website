@@ -8,11 +8,9 @@ import { MdArrowBackIosNew } from "react-icons/md";
 import ExDetails from '../ExDetails/ExDetails';
 
 const Exercises = () => {
-    const {fullData,inputVal , setFullData ,setShowEx,part,data,setBodyPart,setData} = useContext(dataContext);
+    const {showExDetails,setShowExDetails,fullData,inputVal , setFullData ,setShowEx,part,data,setBodyPart,setData} = useContext(dataContext);
     const [page , setPage] = useState(1);
-    // console.log(part);
-    
-    const [showExDetails , setShowExDetails] = useState(true);
+    const [showIdx , setShowIdx] = useState(0);
 
 
 const handleFirst =() =>{
@@ -49,7 +47,8 @@ const handleNext =() =>{
 }
 
 const handleShowExerciseDetails = () =>{
-
+   console.log("hi");
+   
 }
 
 
@@ -68,7 +67,7 @@ if(part){
   };
   const axo = async () =>{
    try {
-    // const res = await axios.get(url, options);
+    const res = await axios.get(url, options);
     console.log("res :" , res.data);
   
   setData([
@@ -133,16 +132,19 @@ console.log("inputVal",inputVal);
 
 let endingPoint = page * 12 ;
 let startingPoint = endingPoint - 12 ;
-
+console.log("ShowIdx : ",showIdx)
     
   return (
     <>
    {
-    showExDetails ? <ExDetails /> :
+   
+    
+    showExDetails ? <ExDetails setShowExDetails={setShowExDetails} exData={data[showIdx]}  /> :
     <div className={styles.ex_container}>
    <div>
        <div className={styles.show_con}>
-      <div className={styles.back} onClick={() => { 
+      <div className={styles.back} onClick={() => {
+
          setShowEx(false)
          setData([])}}> <MdArrowBackIosNew className={styles.button}  role='button'/></div>
        <h1 className={styles.show_header}>Showing <span className={styles.part }>  {part || inputVal} </span>Exercises :</h1>
@@ -154,7 +156,7 @@ let startingPoint = endingPoint - 12 ;
     
         data.slice(startingPoint , endingPoint).map((ex, i) =>{
              // console.log(ex);
-            return  <ExCard onClick={handleShowExerciseDetails} {...ex} key={i} />
+            return  <ExCard setShowExDetails={setShowExDetails} page={page} showIdx={showIdx} setShowIdx={setShowIdx}  {...ex} idx={i} key={i} />
          })
      
      }

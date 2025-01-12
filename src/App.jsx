@@ -18,6 +18,8 @@ function App() {
 const [part ,setPart] = useState("");
 const inputRef = useRef(null);
 const [inputVal , setInputVal] = useState("");
+const [showExDetails , setShowExDetails] = useState(false);
+
 
   useEffect(() =>{
   
@@ -45,20 +47,20 @@ const [inputVal , setInputVal] = useState("");
     
    async function name(params) {
     try {
-  //     const res = await axios.get(url , options)
-  //     // const result = await response.text();
-  //     console.log(res.data);
-  //     setBodyPart([
-  //         ...res.data
-  //     ])
+      // const res = await axios.get(url , options)
+      // // const result = await response.text();
+      // console.log(res.data);
+      // setBodyPart([
+      //     ...res.data
+      // ])
 
-  // const res1 = await axios.get(mainUrl , fullOptions)
+  const res1 = await axios.get(mainUrl , fullOptions)
   
-  //     console.log(res1.data);
-  //     setFullData([
-  //         ...res1.data
-  //     ])
-     setFullData([ 'back', 'cardio', 'chest', 'lower arms', 'lower legs', 'neck', 'shoulders', 'upper arms', 'upper legs', 'waist','back', 'cardio', 'chest', 'lower arms', 'lower legs', 'neck', 'shoulders', 'upper arms', 'upper legs', 'waist','back', 'cardio', 'chest', 'lower arms', 'lower legs', 'neck', 'shoulders', 'upper arms', 'upper legs', 'waist','back', 'cardio', 'chest', 'lower arms', 'lower legs', 'neck', 'shoulders', 'upper arms', 'upper legs', 'waist'])
+      console.log(res1.data);
+      setFullData([
+          ...res1.data
+      ])
+    //  setFullData([ 'back', 'cardio', 'chest', 'lower arms', 'lower legs', 'neck', 'shoulders', 'upper arms', 'upper legs', 'waist','back', 'cardio', 'chest', 'lower arms', 'lower legs', 'neck', 'shoulders', 'upper arms', 'upper legs', 'waist','back', 'cardio', 'chest', 'lower arms', 'lower legs', 'neck', 'shoulders', 'upper arms', 'upper legs', 'waist','back', 'cardio', 'chest', 'lower arms', 'lower legs', 'neck', 'shoulders', 'upper arms', 'upper legs', 'waist'])
       setBodyPart(['back', 'cardio', 'chest', 'lower arms', 'lower legs', 'neck', 'shoulders', 'upper arms', 'upper legs', 'waist'])
     } catch (error) {
       console.error(error);
@@ -70,9 +72,9 @@ const [inputVal , setInputVal] = useState("");
   },[]);
   
   return (
-    <dataContext.Provider value={{fullData , setFullData,inputVal , setInputVal,inputRef , part , setPart,data, setData , bodyPart , setBodyPart ,showEx , setShowEx} }>
+    <dataContext.Provider value={{setShowExDetails,showExDetails,fullData , setFullData,inputVal , setInputVal,inputRef , part , setPart,data, setData , bodyPart , setBodyPart ,showEx , setShowEx} }>
        <Headers />
-       <SearchSection />
+      {showExDetails ? null : <SearchSection />}
       {showEx ? <Exercises /> : <NavSection />}
     </dataContext.Provider>
   )

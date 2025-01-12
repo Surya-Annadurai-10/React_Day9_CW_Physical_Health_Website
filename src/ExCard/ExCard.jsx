@@ -5,10 +5,15 @@ import { dataContext } from '../App';
 const ExCard = (props) => {
 //    const ctx = useContext(dataContext);
 //    console.log(props.gifUrl);
-   
+   const handleExDetails = (idx)=> {
+      console.log(idx);
+    props.setShowIdx ((props.page * 12) - (12 - idx));
+    console.log("showIdx : ",(props.page * 12) - (12 - idx));
+    props.setShowExDetails(true);
+   }
     
   return (
-    <div  className={styles.card_con}>
+    <div onClick={() => handleExDetails(props.idx)}  className={styles.card_con}>
         <div className={styles.card_img}>
             <img src={props.gifUrl} alt="ex" />
         </div>
